@@ -17,8 +17,10 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 
 	if mode_up != "" {
 
-		clean_url := path.Clean(mode_up)
-		build_path := filepath.Join(DIR, func_decode(clean_url))
+		decode_url := func_decode(path.Clean(mode_up))
+		build_path := filepath.Join(root, decode_url)
+
+		
 
 		fileInfo, err := os.Stat(build_path)
 		if err != nil || !fileInfo.IsDir() {
@@ -53,6 +55,9 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 
+			build_log := fmt.Sprintf("%s -> %s", filename, decode_url)
+			func_log("\033[97m", r.RemoteAddr, "[SET]", build_log)
+
 			// Create destination file
 			dstPath := filepath.Join(build_path, filepath.Base(filename))
 			dst, err := os.Create(dstPath)
@@ -76,4 +81,8 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "error ...")
 	}
 }
+
+
+
+
 

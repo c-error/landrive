@@ -27,7 +27,6 @@ window.onload = function() {
 };
 
 document.getElementById('pin').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        location.href = '/login?pin=' + url_encode(p.value);
-    }
+    
+    if (event.key === 'Enter') location.href = '/login?pin=' + url_encode(p.value);
 });

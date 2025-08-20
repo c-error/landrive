@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"time"
 	"net/http"
+	"net"
 	"os"
 	"strings"
 	"encoding/base64"
@@ -15,8 +16,8 @@ import (
 )
 
 var (
-
-	DIR = "./"
+	pass = "admin"
+	root = "./"
 	port  = "8080"
 	DECODE = strings.NewReplacer(
 		"<0>", "#",
@@ -59,55 +60,7 @@ var (
 
 const (
 	
-	pass = "admin"
 	ZIP = 100 * 1024 // 100 KB
-
-	_DWN_ = `
-	<!doctype html>
-	<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link rel="icon" href="data:image/png;base64,%s" />
-		<title>LanDrive:/%s</title>
-		<style>
-			%s
-		</style>
-	</head>
-	<body>
-		<dwn>
-			<info>
-				<p>File Info: ...</p>
-				<sub-info>
-					<data><c>Name:</c><b>%s</b></data>
-					<data><c>Type:</c><b>%s</b></data>
-					<data><c>Size:</c><b>%s</b></data>
-					<data><c>Date:</c><b>%s</b></data>
-				</sub-info>
-				<a href="%s">DOWNLOAD</a>
-			</info>
-		</dwn>
-	</body>
-	</html>
-	`
-
-	_ERR_ = `
-	<!doctype html>
-	<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link rel="icon" href="data:image/png;base64,%s" />
-		<title>LanDrive:/%s</title>
-		<style>
-			%s
-		</style>
-	</head>
-	<body>
-		%s
-	</body>
-	</html>
-	`
 )
 
 type StringSet struct {
@@ -177,44 +130,81 @@ func func_encode(path string) string {
 }
 
 func func_log(color string, addr string, mode string, path string) {
-	fmt.Printf("%s%s - %s - %s - %s \033[0m\n", color, time.Now().Format("15:04:05"), addr, mode, path)
+
+	fmt.Printf("| %s%s - %s - %s - %s \033[0m\n", color, time.Now().Format("15:04:05"), addr, mode, path)
 }
 
 func main() {
 
-	C.enable_ansi()
+	C.enable_ansi() // enable console ansi
+	clint.Add("127.0.0.1") // bypass login on localhost
 
-	clint.Add("127.0.0.1")
+	// get and set arguments
+	if len(os.Args) >= 4 {
 
-	if len(os.Args) >= 3 { port = os.Args[1]; DIR = os.Args[2] }
+		port = os.Args[1]
+		pass = os.Args[2]
+		root = os.Args[3]
+	}
 
-	if func_exists(DIR) {
+	// set handler
+	if func_exists(root) {
 
 		http.HandleFunc("/path", handler_index)
 		http.HandleFunc("/login", handler_login)
 		http.HandleFunc("/set", handler_upload)
 		http.HandleFunc("/get", handler_download)
 		http.HandleFunc("/chat", handler_chat)
-		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
 
-			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1
-			w.Header().Set("Pragma", "no-cache") // HTTP 1.0
-			w.Header().Set("Expires", "0") // Proxies
 			r.Write(w)
+			return
 		})
-		
-		fmt.Printf("\nport : \033[92m%s\033[0m ...\ndir : \033[32m%s\033[0m ...\n\n", port, DIR)
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			
+			if r.URL.Path == "/" {
+				http.Redirect(w, r, "/path?fo=/", http.StatusFound)
+				return
+			}
+		})
+
+		fmt.Println("\n+- LanDrive -------")
+		fmt.Printf("| root: \033[94m%s\033[0m ...\n", root)
+		fmt.Printf("| port: \033[94m%s\033[0m ...\n", port)
+		fmt.Printf("| pass: \033[94m%s\033[0m ...\n", pass)
+		fmt.Println("+------------------")
+		fmt.Printf("| url: \033[92mhttp://127.0.0.1:%s/path?fo=/\033[0m ...\n", port)
+
+		addrs, err := net.InterfaceAddrs()
+		if err != nil {
+			
+			fmt.Printf("\033[91mError @ network interface !!\033[0m\n")
+			os.Exit(1)
+		}
+
+		for _, addr := range addrs {
+			// check for ip address [not loopback]
+			if ipNet, ok := addr.(*net.IPNet); ok && !ipNet.IP.IsLoopback() {
+				if ip4 := ipNet.IP.To4(); ip4 != nil {
+					
+					fmt.Printf("| url: \033[92mhttp://%s:%s/path?fo=/\033[0m ...\n", ip4.String(), port) // print IPv4
+				}
+			}
+		}
+		fmt.Println("+- Logs -----------")
 
 		ip := fmt.Sprintf(":%s", port)
 		if err := http.ListenAndServe(ip, nil); err != nil {
 			
-			fmt.Printf("\033[91mError @ %s !!\033[0m\n", port)
-			os.Exit(0)
+			fmt.Printf("\033[91mError @ unknown port !!\033[0m\n")
+			os.Exit(1)
 		}
 
 	} else {
 
-		fmt.Printf("\033[91mError @ %s !!\033[0m\n", DIR)
-		os.Exit(0)
+		fmt.Printf("\033[91mError @ unknown root !!\033[0m\n", root)
+		os.Exit(1)
 	}
 }
+
+

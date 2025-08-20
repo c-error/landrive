@@ -102,8 +102,61 @@ login shell input {
 	margin-left: 2px;
 }
 
+top-bar {
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	margin: 20px 20px 0 20px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	background-color: var(--clr9);
+	padding: 16px 18px 14px 18px;
+}
 
+top-bar div {
+	display: flex;
+	align-items: center;
+}
 
+top-bar div img {
+	width: 32px;
+	height: 32px;
+}
+
+top-bar div h1 {
+	font-size: 20px;
+	margin-left: 6px;
+}
+
+.logo {
+	background-color: var(--clr10);
+	padding: 6px 12px 6px 8px;
+	border-radius: 5px;
+	border: 2px solid var(--clr8);
+	animation-name: logo_blink;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes logo_blink {
+	0%   {border-color: var(--clr8);}
+	96%   {border-color: var(--clr8);}
+	100% {border-color: var(--clr0);}
+}
+
+top-bar div a {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 8px 9px 7px 9px;
+	margin-left: 0;
+}
+
+top-bar div p {
+	font-size: 19px;
+	color: var(--clr8);
+}
 
 index {
 	display: flex;
@@ -115,7 +168,7 @@ index panel {
 	background-color: var(--clr9);
 	border-radius: 5px;
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-	margin: 20px 20px 0 20px;
+	margin: 4px 20px 0 20px;
 	padding: 40px;
 }
 
@@ -444,11 +497,30 @@ chat cell p {
 	color: var(--clr8);
 }
 
+chat cell div {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+chat cell div button {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 7px 9px 7px 9px;
+	margin: 0 0 0 6px;
+}
+
+chat cell div a {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 7px 9px 7px 9px;
+}
+
 #user_name {
 	width: 75px;
 }
-
-
 
 dwn {
 	display: flex;
@@ -523,6 +595,20 @@ dwn sub-info data b {
 	margin: 0 6px 0 0;
 }
 
+.error {
+	display: flex;
+	justify-content: flex-start;
+	margin: 12px 0 0 17px;
+}
+
+.error b {
+	margin: 0 15px 0 0;
+}
+
+.error a {
+	color: #ff0000;
+	font-weight: bolder;
+}
 
 @media (max-width: 600px) {
 	login {
@@ -546,6 +632,19 @@ dwn sub-info data b {
 	}
 	login shell end {
 		padding: 0;
+	}
+	top-bar {
+		margin: 0 0 3px 0;
+	}
+	.logo {
+		padding: 6px 9px 6px 7px;
+	}
+	top-bar div img {
+		width: 28px;
+		height: 28px;
+	}
+	top-bar div h1 {
+		font-size: 17px;
 	}
 	index panel {
 		box-shadow: none;
@@ -584,4 +683,20 @@ dwn sub-info data b {
 	dwn info {
 		width: 95%;
 	}
-  }
+	chat {
+		padding: 0;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		border: 0;
+	}
+	chat msg {
+		padding: 8px;
+	}
+	chat cell input {
+		font-size: 14px;
+	}
+}
+
+

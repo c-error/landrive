@@ -15,95 +15,19 @@ import (
 	"syscall"
 )
 
-const (
-body = `
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<link rel="icon" href="data:image/png;base64,%s" />
-	<title>LanDrive:/%s</title>
-	<style>
-		@font-face { 
-			font-family: "Courier Prime";
-			src: url(data:application/octet-stream;base64,%s);
-		}
-		%s
-	</style>
-	<script>
-		const SVR_URL = "%s";
-	</script>
-</head>
-<body>
+// const (
 
-
-	<index>
-		<panel>
-			<form id="uploadForm" enctype="multipart/form-data">
-				<input type="file" name="files" id="fileInput" multiple>
-				<button type="button" onclick="uploadFiles()">UPLOAD</button>
-			</form>
-			<gap></gap>
-			<mid-bar>
-				<search>
-					<input type="text" id="filter_name" placeholder="Filter by Name ...">
-					<p>|</p>
-					<input type="text" id="filter_size" placeholder="Filter by Size ...">
-				</search>
-				<filter>
-					<div>
-						<input type="checkbox" id="filter_all">
-						<a>:All</a>
-						<input type="checkbox" id="filter_fo">
-						<a>:Folder</a>
-						<input type="checkbox" id="filter_fi">
-						<a>:File</a>
-					</div>
-					<div>
-						<button onclick="search_clr();">CLEAR</button>
-						<p>|</p>
-						<button onclick="svr_search();">SEARCH</button>
-					</div>
-				</filter>
-			</mid-bar>
-			<gap></gap>
-			<loc>
-				<a href='/path?fo=/'>HOME</a>
-				<b>|</b>
-				<a href='%s'>BACK</a>
-				<b>|</b>
-				<p>%s</p>
-			</loc>
-		</panel>
-
-		<uploding id="uploding_shell" style="display: none;">
-			<h1>Uploding: ...</h1>
-			<upload-subshell id="uploding"></upload-subshell>
-		</uploding>
-
-		%s
-
-	</index>
-
-	<div id="popup"></div>
-	<script>
-		%s
-	</script>
-</body>
-</html>
-`
-)
+// )
 
 func handler_index(w http.ResponseWriter, r *http.Request) {
 
 	get_ip := r.RemoteAddr
 	get_ip = get_ip[:strings.LastIndexByte(get_ip, ':')]
 
-	fmt.Println("CLINTL_IP:", r.RemoteAddr)
+	// fmt.Println("CLINTL_IP:", r.RemoteAddr)
 
 	if !clint.Contains(get_ip) {
-		http.Redirect(w, r, "/login", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
 
@@ -113,12 +37,13 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 	if mode_fo != "" {
 
 		clean_url := path.Clean(mode_fo)
-		build_path := filepath.Join(DIR, func_decode(clean_url))
-		
-		fmt.Printf("\033[91mDEBUG: %s !!\033[0m\n", clean_url)
+		decode_url := func_decode(clean_url)
+		build_path := filepath.Join(root, decode_url)
 
 		if func_exists(build_path) {
 			
+			func_log("\033[97m", r.RemoteAddr, "[PATH]", decode_url)
+
 			FILTER_DATA := r.URL.Query().Get("f")
 
 			FILTER_STATE := 0
@@ -151,11 +76,12 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 			C_BUILD_PATH, err := syscall.UTF16PtrFromString(build_path)
 			if err != nil {
 				html := fmt.Sprintf(
-					_ERR_, 
+					error_body, 
 					icon, 
 					"/500", 
+					font,
 					CSS, 
-					`<a>Folder path error. </a><a class="error" href='/'>Return to home.</a>`,
+					`<b>Folder path error. </b>`,
 				)
 				w.Write([]byte(html))
 				return
@@ -185,11 +111,12 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 
 				C.free(unsafe.Pointer(c_dir_data))
 				html := fmt.Sprintf(
-					_ERR_, 
+					error_body, 
 					icon, 
-					"/500", 
+					"/500",
+					font,
 					CSS, 
-					`<a>Internal server error. </a><a class="error" href='/'>Return to home.</a>`,
+					`<b>Internal server error. </b>`,
 				)
 				w.Write([]byte(html))
 				return
@@ -200,11 +127,12 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 		
 			if dir[:3] == "_E_" {
 				
-				cmsg := fmt.Sprintf(`<a>%s. </a><a class="error" href='/'>Return to home.</a>`, dir[3:])
+				cmsg := fmt.Sprintf(`<b>%s. </b>`, dir[3:])
 				html := fmt.Sprintf(
-					_ERR_, 
+					error_body, 
 					icon, 
-					"/500", 
+					"/500",
+					font,
 					CSS, 
 					cmsg,
 				)
@@ -212,7 +140,7 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-					// Set headers to prevent caching
+			// Set headers to prevent caching
 			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1
 			w.Header().Set("Pragma", "no-cache") // HTTP 1.0
 			w.Header().Set("Expires", "0") // Proxies
@@ -222,14 +150,14 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 			if parent == "" { parent = "/" }
 			parent = fmt.Sprintf("/path?fo=%s", parent)
 
-			// top := fmt.Sprintf(_TOP_, parent, SLASH.Replace(func_decode(clean_url)))
 			html := []byte(fmt.Sprintf(
-				body,
+				path_body,
 				icon,
 				clean_url,
 				font,
 				CSS,
 				clean_url,
+				icon,
 				parent,
 				SLASH.Replace(func_decode(clean_url)),
 				dir,
@@ -259,12 +187,15 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 			}
 		} else {
 
+			func_log("\033[91m", r.RemoteAddr, "[PATH]", decode_url)
+
 			html := fmt.Sprintf(
-				_ERR_, 
+				error_body, 
 				icon, 
-				"/404", 
+				"/404",
+				font,
 				CSS, 
-				`<a>Folder does not exist. </a><a class="error" href='/'>Return to home.</a>`,
+				`<b>Folder does not exist. </b>`,
 			)
 			w.Write([]byte(html))
 			return
@@ -274,17 +205,21 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 	} else if mode_fi != "" {
 
 		clean_url := path.Clean(mode_fi)
-		build_path := filepath.Join(DIR, func_decode(clean_url))
+		decode_url := func_decode(clean_url)
+		build_path := filepath.Join(root, decode_url)
+
+		func_log("\033[97m", r.RemoteAddr, "[PATH]", decode_url)
 
 		fileInfo, err := os.Stat(build_path)
 		if err != nil || fileInfo.IsDir() {
 
 			html := fmt.Sprintf(
-				_ERR_, 
+				error_body, 
 				icon, 
-				"/404", 
+				"/404",
+				font,
 				CSS, 
-				`<a>File does not exist. </a><a class="error" href='/'>Return to home.</a>`,
+				`<b>File does not exist. </b>`,
 			)
 			w.Write([]byte(html))
 			return 
@@ -304,9 +239,10 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 
 		download := fmt.Sprintf("/get?fi=%s", clean_url)
 		html := fmt.Sprintf(
-			_DWN_,
+			dwn_body,
 			icon,
 			"/"+file_name,
+			font,
 			CSS,
 			file_name,
 			filepath.Ext(build_path),
@@ -318,6 +254,6 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		http.Redirect(w, r, "/path?fo=/", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/path?fo=/", http.StatusFound)
 	}
 }
