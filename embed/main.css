@@ -1,0 +1,587 @@
+
+:root {
+	--clr0: #ffffff;
+	--clr1: #e5e5e5;
+	--clr2: #cccccc;
+	--clr3: #b3b3b3;
+	--clr4: #999999;
+	--clr5: #7f7f7f;
+	--clr6: #666666;
+	--clr7: #4d4d4d;
+	--clr8: #333333;
+	--clr9: #1a1a1a;
+	--clr10: #0d0d0d;
+}
+
+* {
+	font-family: "Courier Prime";
+	font-size: 16px;
+	font-weight: normal;
+	text-rendering: optimizespeed;
+	padding: 0;
+	margin: 0;
+	outline: 0;
+	border: 0;
+	text-decoration: none;
+	border-radius: 0;
+	scroll-behavior: smooth;
+	accent-color: var(--clr0);
+	color: var(--clr0);
+}
+
+/* for chrome */
+input[type="file"]::-webkit-file-upload-button {
+	display: none;
+}
+
+/* for firefox */
+input[type="file"]::file-selector-button {
+	display: none;
+}
+
+html, body {
+	background-color: var(--clr10);
+}
+
+gap {
+	height: 4px;
+	background-color: var(--clr10);
+	width: 100%;
+	display: block;
+	margin: 8px 0 8px 0;
+	border-radius: 2px;
+}
+
+
+
+login {
+	display: flex;
+	justify-content: center;
+}
+
+login shell {
+	position: absolute;
+	top: 30%;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	align-items: center;
+	background-color: var(--clr9);
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+login shell img {
+	width: 202px;
+	height: 202px;
+	padding: 32px;
+}
+
+login shell end {
+	display: flex;
+	flex-direction: column;
+	padding: 0 32px 0 0;
+}
+
+login shell end cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	text-wrap: nowrap;
+	border-top: 2px solid var(--clr8);
+	margin-top: 8px;
+	padding-top: 8px;
+}
+
+login shell input {
+	background-color: var(--clr10);
+	border: 2px solid var(--clr8);
+	border-radius: 4px !important;
+	padding: 7px 8px 6px 8px;
+	margin-left: 2px;
+}
+
+
+
+
+index {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+index panel {
+	background-color: var(--clr9);
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	margin: 20px 20px 0 20px;
+	padding: 40px;
+}
+
+index panel form {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+index panel form input {
+	background-color: var(--clr10);
+	border: 2px solid var(--clr8);
+	border-radius: 4px !important;
+	padding: 8px 6px 7px 6px;
+	margin-right: 8px;
+	width: 100%;
+	color: var(--clr4);
+}
+
+index panel form button {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 8px 9px 7px 9px;
+}
+
+index panel mid-bar {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+index panel mid-bar search {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+index panel mid-bar search p {
+	font-size: 20px;
+	margin: 4px 0 0 0;
+	color: var(--clr8);
+}
+
+index panel mid-bar search input {
+	background-color: var(--clr10);
+	border: 2px solid var(--clr8);
+	border-radius: 4px !important;
+	padding: 5px 6px 4px 6px;
+	width: 100%;
+}
+
+index panel mid-bar filter {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	margin-top: 8px;
+}
+
+index panel mid-bar filter div {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	align-items: center;
+}
+
+index panel mid-bar filter p {
+	font-size: 20px;
+	color: var(--clr8);
+}
+
+index panel mid-bar filter button {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 8px 9px 7px 9px;
+}
+
+index panel mid-bar filter div a {
+	margin: 3px 26px 0 3px;
+}
+
+index panel mid-bar filter div input {
+	width: 18px;
+	height: 18px;
+}
+
+index panel loc {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-decoration: none;
+}
+
+index panel loc a {
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 8px 9px 7px 9px;
+}
+
+index panel loc b {
+	font-size: 20px;
+	color: var(--clr8);
+}
+
+index panel loc p {
+	background-color: var(--clr8);
+	width: 100%;
+	padding: 8px 9px 7px 9px;
+	border: 2px solid var(--clr8);
+	border-radius: 4px;
+	text-wrap: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+
+index shell {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	margin: 4px 20px 200px 20px;
+	border: 2px solid var(--clr9);
+}
+
+index shell top {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	background-color: var(--clr9);
+	padding: 16px 18px 14px 18px;
+}
+
+index shell top div a {
+	margin: 0 16px 0 0;
+}
+
+index shell cl {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	border-top: 2px solid var(--clr9);
+	padding: 12px 11px 10px 11px;
+	text-wrap: nowrap;
+}
+
+index shell cl nm {
+	width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* index shell a {
+	font-size: 13px;
+} */
+
+index shell b {
+	/* font-size: 13px; */
+	margin-left: 5px;
+}
+
+
+
+uploding {
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	margin: 4px 20px 0 20px;
+	border: 2px solid var(--clr9);
+}
+
+uploding h1 {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	background-color: var(--clr9);
+	padding: 16px 18px 14px 18px;
+}
+
+upload-subshell {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+upload-subshell cell {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	overflow: hidden;
+	padding: 12px 11px 10px 11px;
+	border-top: 2px solid var(--clr9);
+}
+
+upload-subshell cell up-info {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	text-wrap: nowrap;
+	width: 50%;
+}
+
+upload-subshell cell up-info a {
+	max-width: 60%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+upload-subshell cell up-info b {
+	margin: 0 11px 0 11px;
+}
+
+upload-subshell cell .progress_shell {
+	border: 2px solid var(--clr8);
+	height: 4px;
+	width: 50%;
+	border-radius: 4px;
+}
+
+upload-subshell cell .progress {
+	height: 100%;
+	background-color: var(--clr1);
+	border-radius: inherit;
+	min-width: 1%;
+	max-width: 100%;
+	width: 0;
+}
+
+#popup {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	background: transparent;
+	max-width: 230px;
+	text-wrap: nowrap;
+}
+
+#popup a {
+	background-color: var(--clr9);
+	margin: 0 0 2px 0;
+	padding: 9px 10px 9px 10px;
+	border-radius: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 14px;
+	color: var(--clr0);
+	border: 1px solid var(--clr8);
+}
+
+chat {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 20px;
+	bottom: 20px;
+	padding: 3px;
+	background-color: var(--clr9);
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+chat msg {
+	height: 100%;
+	border-radius: inherit;
+	background-color: var(--clr10);
+	font-size: 12px;
+	padding: 12px;
+	overflow-y: scroll;
+}
+
+chat msg div {
+	display: flex;
+	flex-direction: column;
+	margin: 0px 0 8px 0;
+	background-color: var(--clr9);
+	padding: 14px;
+	border-radius: 4px;
+}
+
+#end_beacon {
+	width: 0;
+	height: 0;
+	margin: 0 0 50px 0;
+}
+
+chat msg a {
+	font-size: 12px;
+	word-wrap: break-word;
+	word-break: break-all;
+	margin-top: 5px;
+}
+
+chat cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 12px;
+}
+
+chat cell input {
+	background-color: var(--clr10);
+	border: 2px solid var(--clr8);
+	border-radius: 4px !important;
+	padding: 8px 6px 7px 6px;
+	width: 100%;
+	color: var(--clr0);
+}
+
+chat cell p {
+	font-size: 20px;
+	color: var(--clr8);
+}
+
+#user_name {
+	width: 75px;
+}
+
+
+
+dwn {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+dwn info {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	position: absolute;
+	top: 30%;
+	width: 50%;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	background-color: var(--clr9);
+}
+
+dwn info a {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	background-color: var(--clr8);
+	border: 2px solid var(--clr7);
+	border-radius: 4px !important;
+	padding: 8px 9px 7px 9px;
+	margin: 8px;
+}
+
+dwn info p {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	padding: 16px 18px 14px 18px;
+}
+
+dwn sub-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+dwn sub-info data {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	border: 2px solid var(--clr9);
+	border-top: 0;
+	background-color: var(--clr10);
+}
+
+dwn sub-info data c,
+dwn sub-info data b {
+	font-size: 12px;
+	text-wrap: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 4px 0 4px 6px;
+}
+
+dwn sub-info data c {
+	min-width: 40px;
+	max-width: 40px;
+	border-right: 2px solid var(--clr9);
+	margin-right: 8px;
+}
+
+dwn sub-info data b {
+	margin: 0 6px 0 0;
+}
+
+
+@media (max-width: 600px) {
+	login {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: var(--clr9);
+		overflow: hidden;
+	}
+	login shell {
+		top: 0;
+		bottom: 0;
+		box-shadow: none;
+	}
+	login shell img {
+		width: 140px;
+		height: 140px;
+		padding: 0 8px 0 0;
+	}
+	login shell end {
+		padding: 0;
+	}
+	index panel {
+		box-shadow: none;
+		padding: 20px;
+		border-radius: 0;
+		margin: 0;
+	}
+	index shell {
+		box-shadow: none;
+		border-radius: 0;
+		margin: 4px 0 0 0;
+		border: 0;
+	}
+	index panel mid-bar filter div a {
+		margin: 3px 12px 0 3px;
+	}
+	uploding {
+		border-radius: 0;
+		box-shadow: none;
+		margin: 4px 0 0 0;
+		border: 0;
+	}
+	index shell top a {
+		font-size: 14px;
+	}
+	uploding h1 {
+		font-size: 14px;
+	}
+	dwn {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+	dwn info {
+		width: 95%;
+	}
+  }
