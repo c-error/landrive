@@ -1,7 +1,5 @@
 package main
 
-
-
 import (
 	"fmt"
 	"io"
@@ -11,20 +9,11 @@ import (
 	"os"
 	"path/filepath"
 	"path"
-	// "compress/gzip"
-	// "strings"
-	// "syscall"
-	// "mime"
-	// "encoding/base64"
-	// _ "embed"
 )
-
-
 
 func handler_upload(w http.ResponseWriter, r *http.Request) {
 
 	mode_up := r.URL.Query().Get("fo")
-	// fmt.Println(mode_up)
 
 	if mode_up != "" {
 
@@ -44,7 +33,6 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Process each part as a stream
 		for {
 
 			part, err := reader.NextPart()
@@ -64,8 +52,6 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 			if filename == "" {
 				continue
 			}
-
-			// fmt.Println(build_path)
 
 			// Create destination file
 			dstPath := filepath.Join(build_path, filepath.Base(filename))

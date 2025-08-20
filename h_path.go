@@ -5,8 +5,6 @@ package main
 import "C"
 import (
 	"fmt"
-	// "io"
-	// "time"
 	"unsafe"
 	"net/http"
 	"os"
@@ -15,15 +13,9 @@ import (
 	"compress/gzip"
 	"strings"
 	"syscall"
-	// "mime"
-	// "encoding/base64"
-	// _ "embed"
 )
 
 const (
-// _TOP_ = `
-
-// `
 body = `
 <!doctype html>
 <html lang="en">
@@ -46,57 +38,53 @@ body = `
 <body>
 
 
-<index>
-	<panel>
-		<form id="uploadForm" enctype="multipart/form-data">
-			<input type="file" name="files" id="fileInput" multiple>
-			<button type="button" onclick="uploadFiles()">UPLOAD</button>
-		</form>
-		<gap></gap>
-		<mid-bar>
-			<search>
-				<input type="text" id="filter_name" placeholder="Filter by Name ...">
-				<p>|</p>
-				<input type="text" id="filter_size" placeholder="Filter by Size ...">
-			</search>
-			<filter>
-				<div>
-					<input type="checkbox" id="filter_all">
-					<a>:All</a>
-					<input type="checkbox" id="filter_fo">
-					<a>:Folder</a>
-					<input type="checkbox" id="filter_fi">
-					<a>:File</a>
-				</div>
-				<div>
-					<button onclick="search_clr();">CLEAR</button>
+	<index>
+		<panel>
+			<form id="uploadForm" enctype="multipart/form-data">
+				<input type="file" name="files" id="fileInput" multiple>
+				<button type="button" onclick="uploadFiles()">UPLOAD</button>
+			</form>
+			<gap></gap>
+			<mid-bar>
+				<search>
+					<input type="text" id="filter_name" placeholder="Filter by Name ...">
 					<p>|</p>
-					<button onclick="svr_search();">SEARCH</button>
-				</div>
-			</filter>
-		</mid-bar>
-		<gap></gap>
-		<loc>
-			<a href='/path?fo=/'>HOME</a>
-			<b>|</b>
-			<a href='%s'>BACK</a>
-			<b>|</b>
-			<p>%s</p>
-		</loc>
-	</panel>
+					<input type="text" id="filter_size" placeholder="Filter by Size ...">
+				</search>
+				<filter>
+					<div>
+						<input type="checkbox" id="filter_all">
+						<a>:All</a>
+						<input type="checkbox" id="filter_fo">
+						<a>:Folder</a>
+						<input type="checkbox" id="filter_fi">
+						<a>:File</a>
+					</div>
+					<div>
+						<button onclick="search_clr();">CLEAR</button>
+						<p>|</p>
+						<button onclick="svr_search();">SEARCH</button>
+					</div>
+				</filter>
+			</mid-bar>
+			<gap></gap>
+			<loc>
+				<a href='/path?fo=/'>HOME</a>
+				<b>|</b>
+				<a href='%s'>BACK</a>
+				<b>|</b>
+				<p>%s</p>
+			</loc>
+		</panel>
 
-	<uploding id="uploding_shell" style="display: none;">
-		<h1>Uploding: ...</h1>
-		<upload-subshell id="uploding"></upload-subshell>
-	</uploding>
+		<uploding id="uploding_shell" style="display: none;">
+			<h1>Uploding: ...</h1>
+			<upload-subshell id="uploding"></upload-subshell>
+		</uploding>
 
+		%s
 
-
-
-	%s
-
-
-</index>
+	</index>
 
 	<div id="popup"></div>
 	<script>
@@ -106,19 +94,6 @@ body = `
 </html>
 `
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 func handler_index(w http.ResponseWriter, r *http.Request) {
 
@@ -132,34 +107,15 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	mode_fo := r.URL.Query().Get("fo")
 	mode_fi := r.URL.Query().Get("fi")
-	// mode_up := r.URL.Query().Get("up")
-
-	// fmt.Printf("\033[91mDebug_DIR:@ %s !!\033[0m\n", mode_fo)
-	// fmt.Printf("\033[91mDebug_GET @ %s !!\033[0m\n", mode_fi)
 
 	if mode_fo != "" {
 
 		clean_url := path.Clean(mode_fo)
 		build_path := filepath.Join(DIR, func_decode(clean_url))
 		
-
 		fmt.Printf("\033[91mDEBUG: %s !!\033[0m\n", clean_url)
-
 
 		if func_exists(build_path) {
 			
@@ -360,20 +316,8 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 		)
 		w.Write([]byte(html))
 
-	// } else if mode_gt != "" {
-
 	} else {
 
 		http.Redirect(w, r, "/path?fo=/", http.StatusMovedPermanently)
 	}
 }
-
-
-
-
-
-
-
-
-
-

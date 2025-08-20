@@ -1,21 +1,12 @@
 package main
 
-
 import (
 	"fmt"
-	// "io"
-	// "time"
-	// "unsafe"
 	"net/http"
 	"os"
 	"path/filepath"
 	"path"
-	// "compress/gzip"
-	// "strings"
-	// "syscall"
 	"mime"
-	// "encoding/base64"
-	// _ "embed"
 )
 
 

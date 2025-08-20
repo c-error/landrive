@@ -2,20 +2,9 @@ package main
 
 import (
 	"fmt"
-	// "io"
-	// "time"
-	// "unsafe"
 	"net/http"
 	"strconv"
 	// "os"
-	// "path/filepath"
-	// "path"
-	// "compress/gzip"
-	// "strings"
-	// "syscall"
-	// "mime"
-	// "encoding/base64"
-	// _ "embed"
 )
 
 const(
@@ -80,15 +69,6 @@ func handler_chat(w http.ResponseWriter, r *http.Request) {
 
 			if CHAT_COUNT >= msg_count {
 
-				// if msg_count == 0 {
-				// 	msg_count++
-				// }
-	
-				// fmt.Printf("NOW: %d -> %s\n", msg_count, CLINT_CHAT[msg_count-1])
-	
-
-
-
 				w.Write([]byte(CLINT_CHAT[msg_count-1]))
 				return
 
@@ -104,39 +84,12 @@ func handler_chat(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	} else if get_req == "add" {
 		
 		get_data := r.URL.Query().Get("data")
 		get_name := r.URL.Query().Get("name")
 			
-
 		if get_data != "" && get_name != "" {
-
-
-			
 
 			build_chat := fmt.Sprintf(`<div><p>%s</p><a>> %s</a></div>`, get_name, get_data)
 
@@ -146,7 +99,6 @@ func handler_chat(w http.ResponseWriter, r *http.Request) {
 			send := []byte(build_chat)
 			w.Write(send)
 
-			// fmt.Println("Updated slice:", CLINT_CHAT)
 			return
 		}
 	}

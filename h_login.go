@@ -2,19 +2,9 @@ package main
 
 import (
 	"fmt"
-	// "io"
-	// "time"
-	// "unsafe"
 	"net/http"
-	// "os"
-	// "path/filepath"
-	// "path"
-	// "compress/gzip"
 	"strings"
 	// "syscall"
-	// "mime"
-	// "encoding/base64"
-	// _ "embed"
 )
 
 const(
@@ -71,35 +61,15 @@ func handler_login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	get_pass := r.URL.Query().Get("pin")
-	// get_pass := r.URL.Query().Get("p")
-
-	// if get_pass != "" && get_pass != "" {   127.0.0.1
-		
-
 
 	if get_pass == pass {
 
 		clint.Add(get_ip)
-		// fmt.Println("CLINTL: ", get_pass, get_pass)
-	
-		// if clint.Contains(get_ip) {
-			http.Redirect(w, r, "/path?fo=/", http.StatusMovedPermanently)
-			return
-		// }
+
+		http.Redirect(w, r, "/path?fo=/", http.StatusMovedPermanently)
+		return
 	}
-	// }
 
-
-
-	// get_pass := r.URL.Query().Get("us")
-	// get_pass := r.URL.Query().Get("ps")
-
-	// login_user := func_decode(get_pass)
-	// login_pass := func_decode(get_pass)
-
-	// fmt.Println("CLINTL: ", login_user, login_pass)
-
-	// build_shell_top := fmt.Sprintf(SHELL_TOP_BODY, clean_url)
 	html := []byte(fmt.Sprintf(_LOGIN_, icon, font, CSS, icon, get_ip, LJS))
 	w.Write(html)
 	return

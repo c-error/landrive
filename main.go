@@ -6,24 +6,16 @@ package main
 import "C"
 import (
 	"fmt"
-	// "io"
 	"time"
-	// "unsafe"
 	"net/http"
 	"os"
-	// "path/filepath"
-	// "path"
-	// "compress/gzip"
 	"strings"
-	// "syscall"
-	// "mime"
 	"encoding/base64"
 	_ "embed"
 )
 
 var (
 
-	// IP = "__DEMO__:8080"
 	DIR = "./"
 	port  = "8080"
 	DECODE = strings.NewReplacer(
@@ -33,6 +25,7 @@ var (
 		"<3>", "+",
 		"<4>", ";",
 	)
+
 	ENCODE = strings.NewReplacer(
 		"#", "<0>",
 		"%", "<1>",
@@ -40,6 +33,7 @@ var (
 		"+", "<3>",
 		";", "<4>",
 	)
+
 	SLASH = strings.NewReplacer(
 		"/", " /",
 	)
@@ -60,15 +54,11 @@ var (
 	FONT []byte
 	font = base64.StdEncoding.EncodeToString(FONT)
 
-
-
-
-
 	clint = NewStringSet()
 )
 
 const (
-	// USER = "user"
+	
 	pass = "admin"
 	ZIP = 100 * 1024 // 100 KB
 
@@ -120,34 +110,6 @@ const (
 	`
 )
 
-
-
-// arr := []string{"Hello", "Hii", "Bye"}
-
-
-// func func_exists(dir string) bool {
-
-//     sdir := C.CString(dir)
-//     defer C.free(unsafe.Pointer(sdir))
-//     return C.is_exists(sdir) != 0
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 type StringSet struct {
 	items map[string]struct{}
 }
@@ -158,23 +120,19 @@ func NewStringSet() *StringSet {
 	}
 }
 
-// Add a string (O(1) operation)
 func (ss *StringSet) Add(s string) {
 	ss.items[s] = struct{}{}
 }
 
-// Remove a string (O(1) operation)
 func (ss *StringSet) Remove(s string) {
 	delete(ss.items, s)
 }
 
-// Check if string exists (O(1) operation)
 func (ss *StringSet) Contains(s string) bool {
 	_, exists := ss.items[s]
 	return exists
 }
 
-// Case-insensitive check (O(n) operation - unavoidable)
 func (ss *StringSet) ContainsFold(s string) bool {
 	s = strings.ToLower(s)
 	for key := range ss.items {
@@ -185,7 +143,6 @@ func (ss *StringSet) ContainsFold(s string) bool {
 	return false
 }
 
-// Get all items as slice
 func (ss *StringSet) GetAll() []string {
 	result := make([]string, 0, len(ss.items))
 	for key := range ss.items {
@@ -194,29 +151,9 @@ func (ss *StringSet) GetAll() []string {
 	return result
 }
 
-// Get length
 func (ss *StringSet) Length() int {
 	return len(ss.items)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -231,23 +168,6 @@ func func_exists(path string) bool {
 	}
 }
 
-
-// func func_decode(path string) string {
-
-// 	// # -> <0>
-// 	// % -> <1>
-// 	// & -> <2>
-// 	// + -> <3>
-// 	// ; -> <4>
-
-// 	temp := strings.ReplaceAll(path, "<0>", "#")
-// 	temp = strings.ReplaceAll(temp, "<1>", "%")
-// 	temp = strings.ReplaceAll(temp, "<2>", "&")
-// 	temp = strings.ReplaceAll(temp, "<3>", "+")
-// 	temp = strings.ReplaceAll(temp, "<4>", ";")
-// 	return temp
-// }
-
 func func_decode(path string) string {
     return DECODE.Replace(path)
 }
@@ -256,20 +176,9 @@ func func_encode(path string) string {
 	return ENCODE.Replace(path)
 }
 
-// func func_log(a string, b string, c string) {
 func func_log(color string, addr string, mode string, path string) {
 	fmt.Printf("%s%s - %s - %s - %s \033[0m\n", color, time.Now().Format("15:04:05"), addr, mode, path)
 }
-
-
-
-
-
-
-
-
-
-
 
 func main() {
 
@@ -277,39 +186,8 @@ func main() {
 
 	clint.Add("127.0.0.1")
 
-
-
-	// Add items
-	// set.Add("192.168.0.113")
-
-
-	// Check existence
-	// fmt.Println("Contains 'Apple':", set.Contains("Apple"))      // true
-	// fmt.Println("Contains 'apple':", set.Contains("apple"))      // false
-	// fmt.Println("ContainsFold 'apple':", set.ContainsFold("apple")) // true
-
-	// Remove item
-	// set.Remove("Banana")
-	// fmt.Println("After removal:", set.GetAll())
-
-	// Length
-	// fmt.Println("Length:", set.Length())
-
-
-
-
-
-
-
-
-
-
-
-	// Check if at least one argument is provided
 	if len(os.Args) >= 3 { port = os.Args[1]; DIR = os.Args[2] }
 
-	// fmt.Printf("IS_DIR: %s", func_exists(DIR))
-	
 	if func_exists(DIR) {
 
 		http.HandleFunc("/path", handler_index)
@@ -324,9 +202,6 @@ func main() {
 			w.Header().Set("Expires", "0") // Proxies
 			r.Write(w)
 		})
-		// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// 	http.Redirect(w, r, "/path?=/", http.StatusMovedPermanently)
-		// })
 		
 		fmt.Printf("\nport : \033[92m%s\033[0m ...\ndir : \033[32m%s\033[0m ...\n\n", port, DIR)
 
@@ -343,36 +218,3 @@ func main() {
 		os.Exit(0)
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
