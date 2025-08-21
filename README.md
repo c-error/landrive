@@ -1,6 +1,7 @@
 # LanDrive
 
 📁 **LanDrive** is a fast, lightweight, and portable HTTP file server for Windows.
+![logo](banner.png)
 
 ## Features:
 - **Portable** – single `.exe` file, no installation required.
@@ -99,6 +100,7 @@ The project has the following structure:
 ├── LICENSE
 ├── main.go
 ├── README.md
+├── banner.png
 │
 ├─── demo
 │      ├── pic_1.png
