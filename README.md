@@ -5,16 +5,16 @@
 ## Features:
 - **Portable** – single `.exe` file, no installation required.
 - **Zero dependencies** – no third-party libraries used.
-- **Multi-file upload** – upload multiple files simultaneously.
-- **Direct streaming** – files are streamed directly to SSD/HDD (low memory usage).
+- **Multi-file upload** – upload several files at once.
+- **Direct streaming** – files are streamed directly to disk (low memory usage).
 - **IP-based authentication** – fast and effective for most LAN setups.
-- **Scalable directory listing** – efficiently lists >5000 files/folders in C (low latency & CPU usage).
+- **Scalable directory listing** – efficiently lists `>5000` files/folders in C (low latency & CPU usage).
 - **Built-in LAN chat** – quickly share links or text with all LAN users.
 
 ## Demo:
-- **Command Promt Logging:** 
+- **Command Prompt Logging:** 
 ![pic1](demo/pic_1.png)
-- **Clint Login Interface:** 
+- **Client Login Interface:** 
 ![pic2](demo/pic_2.png)
 - **Main server Interface:** 
 ![pic3](demo/pic_3.png)
@@ -41,7 +41,7 @@
     | url: http://192.168.0.200:80/path?fo=/ ...
     +- Logs -----------
     ```
-    ✅ Now you’re ready to go!
+    ✅ Now you’re ready to go! Open the above URLs in your browser.
 
 ## Build:
 - **Install Dependencies:**
@@ -58,12 +58,12 @@
 - **Set Environment Variables:**
     - Open the **Environment Variables**:
         ```sh
-        rundll32.exe sysdm.cpl,EditEnvironmentVariables   # run in command promt
+        rundll32.exe sysdm.cpl,EditEnvironmentVariables   # run in Command Prompt
         ```
     - Add the following paths to your **Path** variable:
         ```
-        msys2-installed-location\mingw64\bin\
-        msys2-installed-location\usr\bin\
+        C:\msys64\mingw64\bin\
+        C:\msys64\usr\bin\
         ```
 
 - **Verify Installation:**
