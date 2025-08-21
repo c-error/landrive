@@ -125,11 +125,34 @@ The project has the following structure:
             └── OFL.txt
 ```
 ## Contributing:
-
 Feel free to contribute to this project by submitting pull requests or reporting issues. Your contributions are greatly appreciated!
 
 ## License:
-
 This project is licensed under the [MIT License](LICENSE).
 
 😄 Happy coding!
+
+## Fun Fact: 
+If you visit the `/echo` endpoint, for example:
+
+- http://127.0.0.1:80/echo
+- http://192.168.0.200:80/echo
+  
+the server will respond by echoing back the full client request:
+```
+GET /echo HTTP/1.1
+Host: 127.0.0.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+Dnt: 1
+Priority: u=0, i
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Sec-Gpc: 1
+Upgrade-Insecure-Requests: 1
+```
