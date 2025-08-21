@@ -50,16 +50,16 @@
     - Open the **mingw64.exe** shell (from the MSYS2 Start Menu).
     - Run the following commands:
         ```sh
-        pacman -Syu        # Update system packages (MSYS2 may restart)
-        pacman -Syu        # Run again after restart
-        pacman -S --needed base-devel mingw-w64-x86_64-toolchain
-        pacman -S mingw-w64-x86_64-go
+        $ pacman -Syu        # Update system packages (MSYS2 may restart)
+        $ pacman -Syu        # Run again after restart
+        $ pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+        $ pacman -S mingw-w64-x86_64-go
         ```
 
 - **Set Environment Variables:**
     - Open the **Environment Variables**:
         ```sh
-        rundll32.exe sysdm.cpl,EditEnvironmentVariables   # run in Command Prompt
+        > rundll32.exe sysdm.cpl,EditEnvironmentVariables   # run in Command Prompt
         ```
     - Add the following paths to your **Path** variable:
         ```
@@ -70,9 +70,9 @@
 - **Verify Installation:**
     - Run these commands to confirm:
         ```
-        gcc --version
-        g++ --version
-        go version
+        > gcc --version
+        > g++ --version
+        > go version
         ```
     - If you see version output, your installation was successful 👍
 
