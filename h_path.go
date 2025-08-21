@@ -1,5 +1,6 @@
 package main
 /*
+#cgo CFLAGS: -O3 -march=native -flto
 #include "embed/main.c"
 */
 import "C"
@@ -15,16 +16,10 @@ import (
 	"syscall"
 )
 
-// const (
-
-// )
-
 func handler_index(w http.ResponseWriter, r *http.Request) {
 
 	get_ip := r.RemoteAddr
 	get_ip = get_ip[:strings.LastIndexByte(get_ip, ':')]
-
-	// fmt.Println("CLINTL_IP:", r.RemoteAddr)
 
 	if !clint.Contains(get_ip) {
 		http.Redirect(w, r, "/login", http.StatusFound)
@@ -42,7 +37,7 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 
 		if func_exists(build_path) {
 			
-			func_log("\033[97m", r.RemoteAddr, "[PATH]", decode_url)
+			func_log("\033[97m", r.RemoteAddr, "[PATH]  ", decode_url)
 
 			FILTER_DATA := r.URL.Query().Get("f")
 
@@ -187,7 +182,7 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 			}
 		} else {
 
-			func_log("\033[91m", r.RemoteAddr, "[PATH]", decode_url)
+			func_log("\033[91m", r.RemoteAddr, "[PATH]  ", decode_url)
 
 			html := fmt.Sprintf(
 				error_body, 
@@ -208,7 +203,7 @@ func handler_index(w http.ResponseWriter, r *http.Request) {
 		decode_url := func_decode(clean_url)
 		build_path := filepath.Join(root, decode_url)
 
-		func_log("\033[97m", r.RemoteAddr, "[PATH]", decode_url)
+		func_log("\033[97m", r.RemoteAddr, "[PATH]  ", decode_url)
 
 		fileInfo, err := os.Stat(build_path)
 		if err != nil || fileInfo.IsDir() {

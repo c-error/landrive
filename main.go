@@ -1,6 +1,7 @@
 package main
 
 /*
+#cgo CFLAGS: -O3 -march=native -flto
 #include "embed/ansi.c"
 */
 import "C"
@@ -27,13 +28,13 @@ var (
 		"<4>", ";",
 	)
 
-	ENCODE = strings.NewReplacer(
-		"#", "<0>",
-		"%", "<1>",
-		"&", "<2>",
-		"+", "<3>",
-		";", "<4>",
-	)
+	// ENCODE = strings.NewReplacer(
+	// 	"#", "<0>",
+	// 	"%", "<1>",
+	// 	"&", "<2>",
+	// 	"+", "<3>",
+	// 	";", "<4>",
+	// )
 
 	SLASH = strings.NewReplacer(
 		"/", " /",
@@ -58,10 +59,7 @@ var (
 	clint = NewStringSet()
 )
 
-const (
-	
-	ZIP = 100 * 1024 // 100 KB
-)
+const ZIP = 100 * 1024 // 100 KB
 
 type StringSet struct {
 	items map[string]struct{}
@@ -86,30 +84,27 @@ func (ss *StringSet) Contains(s string) bool {
 	return exists
 }
 
-func (ss *StringSet) ContainsFold(s string) bool {
-	s = strings.ToLower(s)
-	for key := range ss.items {
-		if strings.ToLower(key) == s {
-			return true
-		}
-	}
-	return false
-}
+// func (ss *StringSet) ContainsFold(s string) bool {
+// 	s = strings.ToLower(s)
+// 	for key := range ss.items {
+// 		if strings.ToLower(key) == s {
+// 			return true
+// 		}
+// 	}
+// 	return false
+// }
 
-func (ss *StringSet) GetAll() []string {
-	result := make([]string, 0, len(ss.items))
-	for key := range ss.items {
-		result = append(result, key)
-	}
-	return result
-}
+// func (ss *StringSet) GetAll() []string {
+// 	result := make([]string, 0, len(ss.items))
+// 	for key := range ss.items {
+// 		result = append(result, key)
+// 	}
+// 	return result
+// }
 
-func (ss *StringSet) Length() int {
-	return len(ss.items)
-}
-
-
-
+// func (ss *StringSet) Length() int {
+// 	return len(ss.items)
+// }
 
 func func_exists(path string) bool {
 
@@ -125,9 +120,9 @@ func func_decode(path string) string {
     return DECODE.Replace(path)
 }
 
-func func_encode(path string) string {
-	return ENCODE.Replace(path)
-}
+// func func_encode(path string) string {
+// 	return ENCODE.Replace(path)
+// }
 
 func func_log(color string, addr string, mode string, path string) {
 
@@ -155,6 +150,32 @@ func main() {
 		http.HandleFunc("/set", handler_upload)
 		http.HandleFunc("/get", handler_download)
 		http.HandleFunc("/chat", handler_chat)
+		http.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
+
+			get_ip := r.RemoteAddr
+			get_ip = get_ip[:strings.LastIndexByte(get_ip, ':')]
+
+			if clint.Contains(get_ip) {
+
+				clint.Remove(get_ip)
+
+				func_log("\033[97m", r.RemoteAddr, "[LOGOUT]", get_ip)
+				http.Redirect(w, r, "/login", http.StatusFound)
+				return
+			} else {
+
+				html := fmt.Sprintf(
+					error_body, 
+					icon, 
+					"/404", 
+					font,
+					CSS, 
+					`<b>Clint not found. </b>`,
+				)
+				w.Write([]byte(html))
+				return
+			}
+		})
 		http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
 
 			r.Write(w)

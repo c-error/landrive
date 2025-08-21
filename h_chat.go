@@ -56,7 +56,7 @@ func handler_chat(w http.ResponseWriter, r *http.Request) {
 		if get_data != "" && get_name != "" {
 
 			build_log := fmt.Sprintf("%s @ %s", get_name, get_data)
-			func_log("\033[97m", r.RemoteAddr, "[CHAT]", func_decode(build_log))
+			func_log("\033[97m", r.RemoteAddr, "[CHAT]  ", func_decode(build_log))
 
 			build_chat := fmt.Sprintf(`<div><p>%s</p><a>> %s</a></div>`, get_name, get_data)
 

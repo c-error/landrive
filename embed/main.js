@@ -134,7 +134,7 @@ function uploadFiles() {
     up_data.innerHTML = '';
     
     if (files.length === 0) {
-        // alert('Please select files to upload');
+        add_noti('! No file found');
         return;
     }
     
@@ -171,7 +171,7 @@ function uploadFiles() {
 
                 upload_count++;
                 
-                add_noti('DONE:'+file.name);
+                add_noti('✅:'+file.name);
                 document.getElementById('cell_id_'+i).style.display = 'none';
                 // console.log('Server response:', xhr.responseText);
             }
@@ -187,8 +187,6 @@ function uploadFiles() {
                     location.reload();
                 }, 4000);
             }
-            // console.log('Server response: ', upload_count, files.length);
-            // }
         };
 
         const url = '/set?fo=' + SVR_URL;

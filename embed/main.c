@@ -5,16 +5,15 @@
 
 // #include <time.h>
 
+static const char SPECIAL[] = "!_-+~=@#$%^&(){}[];,'";
+
 #define PRESET_START_DIR "<cl><nm><a>FO:</a><b>"
 #define PRESET_START_FILE "<cl><nm><a>FI:</a><b>"
 #define PRESET_MIDDLE "</b></nm><a>"
 #define PRESET_END_DIR "~</a></cl>"
 #define PRESET_END_FILE "</a></cl>"
 #define PRESET_FOOTER "</shell>"
-
-static const char SPECIAL[] = "!_-+~=@#$%^&(){}[];,'";
 #define SPECIAL_SIZE (sizeof(SPECIAL) - 1)
-
 #define SHELL_TOP "<shell><top><div><a>Total: %d</a><a>Folder: %d</a><a>File: %d</a></div><a>%s</a></top>"
 
 typedef struct {
@@ -182,29 +181,9 @@ BOOL is_size_match(const char *find, const char *name) {
 		free(size_clone);
 		return FALSE;
 	}
-	
-	
-
-
-
-
-	// if (wcsstr(name_clone, find) != NULL) {
-		
-	// 	free(name_clone);
-	// 	return TRUE;
-	// } else {
-
-	// 	free(name_clone);
-	// 	return FALSE;
-	// }
 }
 
 char* get_data_list(const WCHAR* directory, int is_filter, int filter_type, const char* filter_name, char* filter_size, const char* clint_ip) {
-	
-	// char* s = strdup("PRESET_START_DIR");
-
-	// return strdup("PRESET_START_DIR");
-
 
 	setlocale(LC_ALL, "");
     wchar_t searchPath[MAX_PATH];

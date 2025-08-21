@@ -56,7 +56,7 @@ func handler_upload(w http.ResponseWriter, r *http.Request) {
 			}
 
 			build_log := fmt.Sprintf("%s -> %s", filename, decode_url)
-			func_log("\033[97m", r.RemoteAddr, "[SET]", build_log)
+			func_log("\033[97m", r.RemoteAddr, "[SET]   ", build_log)
 
 			// Create destination file
 			dstPath := filepath.Join(build_path, filepath.Base(filename))

@@ -20,7 +20,7 @@ func handler_download(w http.ResponseWriter, r *http.Request) {
 		decode_url := func_decode(path.Clean(mode_gt))
 		build_path := filepath.Join(root, decode_url)
 
-		func_log("\033[97m", r.RemoteAddr, "[GET]", decode_url)
+		func_log("\033[97m", r.RemoteAddr, "[GET]   ", decode_url)
 
 		fileInfo, err := os.Stat(build_path)
 		if err != nil || fileInfo.IsDir() {
@@ -72,7 +72,7 @@ func handler_download(w http.ResponseWriter, r *http.Request) {
 		http.ServeContent(w, r, file_name, mod_time, file)
 	} else {
 
-		func_log("\033[91m", r.RemoteAddr, "[GET]", func_decode(path.Clean(mode_gt)))
+		func_log("\033[91m", r.RemoteAddr, "[GET]   ", func_decode(path.Clean(mode_gt)))
 
 		w.WriteHeader(http.StatusNotFound)
 		html := fmt.Sprintf(

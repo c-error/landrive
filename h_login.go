@@ -7,11 +7,6 @@ import (
 	// "syscall"
 )
 
-// const(
-
-// )
-
-
 func handler_login(w http.ResponseWriter, r *http.Request) {
 
 	get_ip := r.RemoteAddr
@@ -19,7 +14,7 @@ func handler_login(w http.ResponseWriter, r *http.Request) {
 
 	if clint.Contains(get_ip) {
 
-		func_log("\033[97m", r.RemoteAddr, "[MATCH]", get_ip)
+		func_log("\033[97m", r.RemoteAddr, "[LOGIN] ", get_ip)
 		http.Redirect(w, r, "/path?fo=/", http.StatusFound)
 		return
 	}
@@ -28,7 +23,7 @@ func handler_login(w http.ResponseWriter, r *http.Request) {
 
 		clint.Add(get_ip)
 
-		func_log("\033[97m", r.RemoteAddr, "[MATCH]", get_ip)
+		func_log("\033[97m", r.RemoteAddr, "[LOGIN] ", get_ip)
 		http.Redirect(w, r, "/path?fo=/", http.StatusFound)
 		return
 		

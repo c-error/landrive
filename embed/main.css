@@ -610,6 +610,61 @@ dwn sub-info data b {
 	font-weight: bolder;
 }
 
+
+
+top-bar div a:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index panel form input:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index panel form button:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index panel mid-bar search input:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index panel mid-bar filter button:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index panel loc a:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+index shell cl:hover {
+	color: var(--clr0);
+	background-color: var(--clr8);
+}
+
+chat cell input:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+chat cell div button:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+chat cell div a:hover {
+	border-color: var(--clr0);
+	color: var(--clr0);
+}
+
+
+
+
 @media (max-width: 600px) {
 	login {
 		position: absolute;
