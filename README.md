@@ -12,9 +12,9 @@
 - **Built-in LAN chat** – quickly share links or text with all LAN users.
 
 ## Demo:
-- **Command Promt Loging:** 
+- **Command Promt Logging:** 
 ![pic1](demo/pic_1.png)
-- **Clint Login Page:** 
+- **Clint Login Interface:** 
 ![pic2](demo/pic_2.png)
 - **Main server Interface:** 
 ![pic3](demo/pic_3.png)
