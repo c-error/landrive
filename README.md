@@ -9,7 +9,7 @@
 - **Multi-file upload** – upload several files at once.
 - **Direct streaming** – files are streamed directly to disk (low memory usage).
 - **IP-based authentication** – fast and effective for most LAN setups.
-- **Scalable directory listing** – efficiently lists `>5000` files/folders in C (low latency & CPU usage).
+- **Scalable directory listing** – efficiently lists `>5000` files/folders in `C` (low latency & CPU usage).
 - **Built-in LAN chat** – quickly share links or text with all LAN users.
 
 ## Demo:
